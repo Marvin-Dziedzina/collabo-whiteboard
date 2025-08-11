@@ -1,0 +1,31 @@
+[workspace]
+edition = "2024"
+members = ["client", "common", "protocol", "server"]
+
+[workspace.dependencies]
+bevy = { version = "0.16.1", features = [] }
+lightyear = "0.22.5"
+
+serde = { version = "1.0.219", features = ["derive"] }
+ron = "0.10.1"
+log = { version = "0.4.27", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+codegen-units = 1
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = "thin"
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = "s"
+strip = "debuginfo"

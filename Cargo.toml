@@ -4,7 +4,7 @@ members = ["client", "common", "protocol", "server"]
 
 [workspace.dependencies]
 bevy = { version = "0.16.1", features = [] }
-lightyear = "0.22.5"
+lightyear = { version = "0.23.0", features = ["netcode", "udp"] }
 
 serde = { version = "1.0.219", features = ["derive"] }
 ron = "0.10.1"

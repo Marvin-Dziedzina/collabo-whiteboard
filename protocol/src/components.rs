@@ -3,7 +3,9 @@ use bevy::prelude::*;
 pub(crate) struct ComponentsProtocolPlugin;
 
 impl Plugin for ComponentsProtocolPlugin {
-    fn build(&self, app: &mut App) {}
+    fn build(&self, app: &mut App) {
+        debug!("Components registered");
+    }
 }
 
 // /// A component that will identify which player the box belongs to

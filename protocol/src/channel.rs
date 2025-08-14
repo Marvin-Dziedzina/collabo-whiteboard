@@ -1,6 +1,9 @@
 use bevy::prelude::*;
-use common::channels::{OrderedReliableChannel, UnorderedReliableChannel};
 use lightyear::prelude::{AppChannelExt, ChannelMode, ChannelSettings, ReliableSettings};
+
+use default::{OrderedReliableChannel, UnorderedReliableChannel};
+
+pub mod default;
 
 pub(crate) struct ChannelProtocolPlugin;
 
@@ -15,6 +18,8 @@ impl Plugin for ChannelProtocolPlugin {
             mode: ChannelMode::UnorderedReliable(ReliableSettings::default()),
             ..Default::default()
         });
+
+        debug!("Channels registered");
     }
 }
 

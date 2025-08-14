@@ -44,6 +44,8 @@ fn setup(mut commands: Commands) {
 fn on_client_connect(trigger: Trigger<OnAdd, LinkOf>, mut commands: Commands) {
     commands.entity(trigger.target()).insert((
         ReplicationSender::new(SEND_INTERVALL, SendUpdatesMode::SinceLastAck, false),
+        MessageManager::default(),
+        MessageReceiver::<TestMessage>::default(),
         Name::from("Client"),
     ));
 }

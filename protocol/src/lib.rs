@@ -1,9 +1,9 @@
 use bevy::prelude::*;
 
-mod channel;
-mod components;
-mod inputs;
-mod message;
+pub mod channel;
+pub mod components;
+pub mod inputs;
+pub mod message;
 
 use channel::ChannelProtocolPlugin;
 use components::ComponentsProtocolPlugin;
@@ -20,10 +20,12 @@ pub struct ProtocolPlugin;
 impl Plugin for ProtocolPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
-            ChannelProtocolPlugin,
             MessageProtocolPlugin,
+            ChannelProtocolPlugin,
             ComponentsProtocolPlugin,
             InputProtocolPlugin,
         ));
+
+        info!("Protocol registered");
     }
 }

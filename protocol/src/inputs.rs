@@ -3,7 +3,9 @@ use bevy::prelude::*;
 pub(crate) struct InputProtocolPlugin;
 
 impl Plugin for InputProtocolPlugin {
-    fn build(&self, app: &mut App) {}
+    fn build(&self, app: &mut App) {
+        debug!("Inputs registered");
+    }
 }
 
 // /// The different directions that the player can move the box

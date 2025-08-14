@@ -1,8 +1,6 @@
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 
-pub mod channels;
-
 pub const LIGHTYEAR_TICKRATE: std::time::Duration = std::time::Duration::from_millis(1000 / 60);
 pub const SEND_INTERVALL: std::time::Duration = std::time::Duration::from_millis(1000 / 10);
 pub const SERVER_ADDR: std::net::SocketAddr = std::net::SocketAddr::new(

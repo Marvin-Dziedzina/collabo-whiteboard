@@ -17,6 +17,3 @@ pub struct CommonPlugin;
 impl Plugin for CommonPlugin {
     fn build(&self, app: &mut App) {}
 }
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct TestMessage(pub u128);

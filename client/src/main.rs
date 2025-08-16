@@ -7,8 +7,8 @@ use lightyear::{
     },
 };
 
-use common::{CLIENT_ADDR, CommonPlugin, LIGHTYEAR_TICKRATE, SERVER_ADDR, TestMessage};
-use protocol::{PROTOCOL_ID, ProtocolPlugin, channel::default::UnorderedReliableChannel};
+use common::{CLIENT_ADDR, CommonPlugin, LIGHTYEAR_TICKRATE, SERVER_ADDR};
+use protocol::{PROTOCOL_ID, ProtocolPlugin};
 
 fn main() {
     let mut app = App::new();
@@ -21,8 +21,7 @@ fn main() {
 
     app.add_plugins((ProtocolPlugin, CommonPlugin));
 
-    app.add_systems(Startup, (setup, dump_channels))
-        .add_systems(FixedUpdate, message_sender);
+    app.add_systems(Startup, setup);
 
     app.run();
 }
@@ -42,8 +41,8 @@ fn setup(mut commands: Commands) -> Result {
             Link::new(None),
             ReplicationReceiver::default(),
             MessageManager::default(),
-            MessageSender::<TestMessage>::default(),
             NetcodeClient::new(auth, NetcodeConfig::default())?,
+            Transport::default(),
             UdpIo::default(),
         ))
         .id();
@@ -51,15 +50,4 @@ fn setup(mut commands: Commands) -> Result {
     commands.trigger_targets(Connect, client);
 
     Ok(())
-}
-
-fn message_sender(
-    time: Res<Time>,
-    mut message_sender: Single<&mut MessageSender<TestMessage>, With<Connected>>,
-) {
-    message_sender.send::<UnorderedReliableChannel>(TestMessage(time.elapsed().as_millis()));
-}
-
-fn dump_channels(reg: Res<ChannelRegistry>) {
-    info!("Channel Registry: {:?}", reg.kind_map());
 }

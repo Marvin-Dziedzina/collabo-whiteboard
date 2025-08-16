@@ -1,6 +1,6 @@
 use bevy::{log::LogPlugin, prelude::*};
 
-use common::{CommonPlugin, LIGHTYEAR_TICKRATE, SEND_INTERVALL, SERVER_ADDR, TestMessage};
+use common::{CommonPlugin, LIGHTYEAR_TICKRATE, SEND_INTERVALL, SERVER_ADDR};
 use lightyear::{
     netcode::NetcodeServer,
     prelude::{
@@ -23,8 +23,7 @@ fn main() {
 
     app.add_observer(on_client_connect);
 
-    app.add_systems(Startup, setup)
-        .add_systems(FixedUpdate, message_receiver);
+    app.add_systems(Startup, setup);
 
     app.run();
 }
@@ -45,13 +44,7 @@ fn on_client_connect(trigger: Trigger<OnAdd, LinkOf>, mut commands: Commands) {
     commands.entity(trigger.target()).insert((
         ReplicationSender::new(SEND_INTERVALL, SendUpdatesMode::SinceLastAck, false),
         MessageManager::default(),
-        MessageReceiver::<TestMessage>::default(),
+        Transform::default(),
         Name::from("Client"),
     ));
-}
-
-fn message_receiver(mut message_receiver: Single<&mut MessageReceiver<TestMessage>>) {
-    for msg in message_receiver.receive() {
-        info!("Message: {}", msg.0);
-    }
 }

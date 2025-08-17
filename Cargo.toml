@@ -3,7 +3,7 @@ edition = "2024"
 members = ["client", "common", "protocol", "server"]
 
 [workspace.dependencies]
-bevy = { version = "0.16.1", features = [] }
+bevy = { version = "0.16.1", features = ["serialize"] }
 lightyear = { version = "0.23.0", features = ["netcode", "udp"] }
 
 serde = { version = "1.0.219", features = ["derive"] }

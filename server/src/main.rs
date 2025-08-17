@@ -10,6 +10,10 @@ use lightyear::{
 };
 use protocol::ProtocolPlugin;
 
+use crate::note::NotePlugin;
+
+mod note;
+
 fn main() {
     let mut app = App::new();
 
@@ -20,6 +24,8 @@ fn main() {
     });
 
     app.add_plugins((ProtocolPlugin, CommonPlugin));
+
+    app.add_plugins(NotePlugin);
 
     app.add_observer(on_client_connect);
 

@@ -1,9 +1,15 @@
 use bevy::prelude::*;
+use common::note::Note;
+use lightyear::prelude::AppComponentExt;
 
 pub(crate) struct ComponentsProtocolPlugin;
 
 impl Plugin for ComponentsProtocolPlugin {
     fn build(&self, app: &mut App) {
+        app.register_component::<Transform>();
+
+        app.register_component::<Note>();
+
         debug!("Components registered");
     }
 }
